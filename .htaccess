@@ -1,0 +1,76 @@
+DirectoryIndex index.php
+AddDefaultCharset UTF-8
+AddCharset utf-8 .php .html .css .js .xml .json .rss
+ServerSignature Off
+Options -Indexes
+ErrorDocument 404 /404.php
+
+php_flag register_globals off
+php_flag magic_quotes_gpc off
+php_flag magic_quotes_runtime Off
+
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
+<IfModule mod_rewrite.c>
+
+	RewriteEngine On
+
+	# Redirect from "www.".
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+
+
+	# Finishing slash processing "/about/" => "/news" for SEO
+	RewriteCond %{REQUEST_URI} ^(.*)/$
+	RewriteRule ^(.*)/$ http://%{HTTP_HOST}%1 [R=permanent,L]
+
+
+
+	# All requests of noexistent files redirecting to index.php
+	RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|swf|flv|css|js|doc|xls|pdf|cur|ico)$ [NC]	# exclude this
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+	RewriteRule ^(.+)$ index.php?REQUEST_URI=$1 [L,QSA]
+
+
+	# System files and folders protection
+	RewriteRule ^(.*/)?\.hg - [F]
+
+</IfModule>
+
+
+
+
+
+# gzip.
+#<IfModule mod_deflate.c>
+#
+#	# html, txt, css, js, json, xml, htc:
+#	AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+#	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+#	AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+#
+#	# web-fonts & svg:
+#	<FilesMatch "\.(ttf|otf|eot|svg)$" >
+#		SetOutputFilter DEFLATE
+#	</FilesMatch>
+#</IfModule>
+
+
+
+#<IfModule mod_expires.c>
+#	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|ttf|otf|eot|svg|woff)$">
+#		Header set Cache-Control "public"
+#		Header set Expires "Fri, 17 May 2030 20:00:00 GMT"
+#		FileETag None
+#	</FilesMatch>
+#</IfModule>
+
+
+
+

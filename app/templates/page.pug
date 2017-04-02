@@ -1,0 +1,27 @@
+doctype html
+html(lang='ru')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    title <?=$title;?>
+    link(href='/assets/font-awesome-4.7.0/css/font-awesome.min.css' rel="stylesheet")
+  body
+    // renders header
+    header.header
+      include header/header
+
+    | <?if ($addr[1] == '') {
+    |   include 'content.php';
+    |   } ?>
+
+    | <?if ($addr[1] == 'search' || $addr[1] == 'auto') { ?>
+    .filter
+      #searchapp Place for search app
+    | <? } ?>
+
+
+    | <? if ($notFound == true) { ?>
+    h1 <?=$title;?>
+    | <? } ;?>
+    footer.footer
+      | Some text in the footer

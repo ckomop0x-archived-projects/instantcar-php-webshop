@@ -1,0 +1,16 @@
+mixin topElementsItem(link, linkTitle, imgLink, title, engineType, enginePower, mileage, produced, price, credit)
+  article.top-elements-item
+    a.top-elements-item__link(href=link, title=linkTitle)
+      img(src=imgLink, alt=title)
+    .top-elements-item__description
+      .maindata
+        .carName= title
+        .info
+          nobr= engineType
+          nobr= enginePower
+          nobr= mileage
+          nobr= produced
+      .pricedata
+        .price= price
+        .finance= credit
+      a.btn.btn-yellow.no-mobile(href=link, title=linkTitle) Detail
