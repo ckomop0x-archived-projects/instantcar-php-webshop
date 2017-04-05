@@ -73,6 +73,11 @@ module.exports = {
 			template: './app/templates/content.pug',
 			chunks: ['']
 		}),
+		new HtmlPlugin({
+			filename: 'filter.php',
+			template: './app/templates/filter/filter.pug',
+			chunks: ['']
+		}),
 		new HtmlPlugin({  // Also generate a test.html
 			filename: 'page.php',
 			template: './app/templates/page.pug',

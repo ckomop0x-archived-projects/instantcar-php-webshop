@@ -8,7 +8,7 @@ class Filter extends Component {
 				<div>
 					<h3 className="filter-container-subtitle">Car make</h3>
 					<select name="carmake" id="carmake" className="filter-container-select">
-						<option value="" selected>Select car make</option>
+						<option defaultValue="">Select car make</option>
 						<option value="Opel">Opel</option>
 						<option value="BMW">BMW</option>
 						<option value="Audi">Audi</option>
@@ -17,7 +17,7 @@ class Filter extends Component {
 				<div>
 					<h3 className="filter-container-subtitle">Car model</h3>
 					<select name="carmake" id="carmake" className="filter-container-select">
-						<option value="" selected>Select car model</option>
+						<option defaultValue="">Select car model</option>
 					</select>
 				</div>
 			</div>
