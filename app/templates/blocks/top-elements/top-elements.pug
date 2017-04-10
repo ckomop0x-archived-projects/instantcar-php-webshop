@@ -1,0 +1,24 @@
+.h2.col-12.top-elements__title Top elements
+.top-elements
+  | <? foreach ($PARSED_DATA['cars'] as $key => $car) {?>
+  |   <? if (isset($car['top']) && $car['top'] == true) { ?>
+  article.top-elements__item
+    a.top-elements__item__link(href != '/auto/<?=$car["articul"]?>', title=linkTitle)
+      img(src !='<?=$car["images"][1]?>', alt != '<?=$car["title"]?>')
+      .top-elements__item__description
+        .maindata
+          .carName
+            | <?=$car["carmake"]?> <?=$car["model"]?>
+          .info
+            nobr
+              b Mileage:&nbsp;
+              | <?=$car["mileage"]?>
+            nobr= produced
+        .pricedata
+          .price
+            b Price:
+            | <?=$car["price"]?>
+            | €
+          .finance= credit
+  |   <? } ?>
+  | <? } ?>

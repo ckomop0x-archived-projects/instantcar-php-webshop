@@ -1,0 +1,21 @@
+// Main page
+| <?if ($route == 'main-page') {
+|   include_once './pages/main-page.php';
+|   } ?>
+
+// Pages with filter
+| <?if ($addr[1] == 'search' || ($addr[1] == 'auto' && count($addr) == 2)) {
+|   include_once 'filter.php';
+|  } ?>
+
+// Detail auto page
+| <?if ($addr[1] == 'auto' && count($addr) == 3) {
+|     $id = searchForId($addr[2], $PARSED_DATA['cars']);
+|     $detail = $PARSED_DATA['cars'][$id];
+|     include_once 'template.php';;
+| } ?>
+
+// 404 Page
+| <? if ($notFound == true) { ?>
+h1 <?=$title;?>
+| <? } ;?>

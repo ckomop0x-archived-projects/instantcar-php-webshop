@@ -1,20 +1,41 @@
 .top-elements
 	display flex
 	flex-flow row
-	&-item
+	flex-wrap wrap
+	&__title
+		margin-top 16px
+	&__item
 		width 23%
 		margin 1%
 		display inline-block
-
-		border 1px solid rgba(128, 128, 128, 0.21)
+		position: relative;
+		box-shadow 0 0 4px 2px rgba(0, 0, 0, 0.2)
 		transition .2s all ease
+		padding-bottom 100px
+		@media (min-width $screen-xs)
+			flex-basis 100%
+		@media (min-width $screen-sm)
+			flex-basis 48%
+		@media (min-width $screen-md)
+			flex-basis 31.3%
+		@media (min-width $screen-lg)
+			flex-basis 18%
+
 		&:hover
-			box-shadow 0 0 4px 2px rgba(0, 0, 0, 0.2)
+			box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.3)
+
 		&__link
 			width 100%
 			img
 				box-sizing border-box
 				padding 15px
 				width 100%
+				min-height 100px
+
 		&__description
-			background: #e9e9f0;
+			background: rgba(0, 0, 0, 0.6);
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			color: #fff;
+			padding: 16px;

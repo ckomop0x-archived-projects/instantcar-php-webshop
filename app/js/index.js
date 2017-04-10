@@ -1,46 +1,6 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import CarsList from './components/CarsList/CarsList';
-import Filter from './components/Filter/Filter'
-
-class App extends Component {
-	render() {
-		return (
-			<div className="application">
-				<Filter />
-				<CarsList />
-			</div>
-		)
-	}
-}
-
-console.log('ok');
-if(document.getElementById('searchapp')) {
-	ReactDOM.render(
-		<App />, document.getElementById('searchapp')
-	);
-}
-
-
-$('.owl-carousel').owlCarousel({
-	loop:true,
-	margin:10,
-	nav:true,
-	lazyLoad: true,
-	responsive: {
-		0:  {
-			items:1
-		},
-		600:  {
-			items:1
-		},
-		1000: {
-			items:1
-		}
-	}
-})
+import './FilterApp/FilterApp';
 
 if(document.querySelector('.detail-page-item__order')) {
 	const reserveButton = document.querySelector('.detail-page-item__order');
@@ -54,8 +14,16 @@ if(document.querySelector('.detail-page-item__order')) {
 				articul: event.target.dataset.articul
 			}, headers: {'Content-Type': 'application/json'}
 		}).then((response) => {
-			this.setState({cars: response.data.message.data.cars});
-			console.log(response.data.message.data.cars);
+			if(response.data.message.data === 'Already reserved') {
+				$('#errorModal').modal();
+				console.log(response)
+			} else {
+				$('#myModal').modal();
+				console.log(response)
+			}
+			// this.setState({cars: response.data.message.data.cars});
+			//
+			// console.log(response.data.message.data.cars);
 		}).catch(function(error) {
 			console.log(error);
 		});
