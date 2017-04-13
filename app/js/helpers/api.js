@@ -1,18 +1,22 @@
 import axios from 'axios';
 
-export const api = (data)=>{
-	// console.log('Knock-knock to APi', data)
+/**
+ *
+ * @param data
+ * @returns {Promise.<T>|*}
+ */
+const api = (data)=>{
 	return axios({
-		method: 'POST',
-		url: '/api.php',
+		method: 'POST', // api method
+		url: '/api.php',  // api URL
 		data: data,
 		headers: {'Content-Type': 'application/json'}
 	}).then((response) => {
 		// console.log(response.data.message.data)
 		return response.data.message.data;
-	}).catch(function(error) {
-		// console.log(error);
+	}).catch(function() {
 		return false;
 	});
 }
 
+export default api

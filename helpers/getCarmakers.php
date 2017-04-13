@@ -1,5 +1,10 @@
 <?
-
+/**
+ * Function for obtaining car brands
+ * @param $array
+ *
+ * @return array
+ */
 function getCarmakers($array) {
 	$result = [];
 	foreach ($array['cars'] as $key => $item) {

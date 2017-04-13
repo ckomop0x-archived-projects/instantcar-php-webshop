@@ -1,34 +1,31 @@
 import axios from 'axios';
 
+// Importing the React application for the car search page
 import './FilterApp/FilterApp';
 
-if(document.querySelector('.detail-page-item__order')) {
+if (document.querySelector('.detail-page-item__order')) {
 	const reserveButton = document.querySelector('.detail-page-item__order');
+	/**
+	 *  Car reservation
+	 *  we getting the car Articul and send it to the backend
+	 * @param event
+	 */
 	reserveButton.onclick = (event) => {
-		console.log(event, event.target.dataset.articul);
 		axios({
-			method: 'POST',
-			url: '/api.php',
+			method: 'POST', // api method
+			url: '/api.php', // api URL
 			data: {
-				request: 'reserve',
-				articul: event.target.dataset.articul
+				request: 'reserve', // type of request
+				articul: event.target.dataset.articul  // articul of the car
 			}, headers: {'Content-Type': 'application/json'}
 		}).then((response) => {
-			if(response.data.message.data === 'Already reserved') {
+			if (response.data.message.data === 'Already reserved') { // if the car is already reserved
 				$('#errorModal').modal();
-				console.log(response)
-			} else {
-				$('#myModal').modal();
-				console.log(response)
+			} else { // if the car is just reserved
+				$('#successModal').modal();
 			}
-			// this.setState({cars: response.data.message.data.cars});
-			//
-			// console.log(response.data.message.data.cars);
-		}).catch(function(error) {
-			console.log(error);
+		}).catch(function() {
+			// if error do something
 		});
 	}
 }
-
-
-

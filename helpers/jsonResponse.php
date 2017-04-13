@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: p.klochkov
- * Date: 08.04.17
- * Time: 15:21
+ * Function
+ * @param null $message
+ * @param int  $code
+ *
+ * @return string
  */
-
 function jsonResponse($message = null, $code = 200) {
 	// clear the old headers
 	header_remove();

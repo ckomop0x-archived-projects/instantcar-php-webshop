@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import CarsListItem from './CarsListItem'
 
 class CarsList extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			cars: [],
-		};
-	}
-	componentDidMount() {
-		// this.setState({cars: this.props.getAllCars()});
-	}
 	render() {
-		console.log('CarsList', this.props);
 		const data = [];
 		this.props.cars.map(car => {
 			if (car.reserved !== true) {
@@ -27,10 +18,10 @@ class CarsList extends Component {
 			}
 			return data;
 		});
-		return(
-			<div className="cars-lis col-12 col-sm-6 col-md-8 col-lg-9">
-				<h3 className="cars-list__title">Cars List</h3>
-				<div className="cars-list__elements">
+		return (
+			<div className='cars-lis col-12 col-sm-6 col-md-8 col-lg-9'>
+				<h3 className='cars-list__title'>Cars List</h3>
+				<div className='cars-list__elements'>
 					{data}
 				</div>
 			</div>
@@ -39,3 +30,7 @@ class CarsList extends Component {
 }
 
 export default CarsList
+
+CarsList.propTypes = {
+	cars: PropTypes.array,
+}
