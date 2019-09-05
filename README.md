@@ -1,32 +1,28 @@
-InstantCar
-========
-
+# Welcome to InstantCar
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)
+  
+  
+## InstantCar
 InstantCar is a small web application for car rent. 
 
-Structure
---------
+## Structure
 1. On the main page, you can see the big picture with the main advert, a link to a catalogue with filter and block with "best" cars for sale. Each car has a short description, a photo and a link to the detail page.
 
 2. On cars page, there is a catalogue of all available cars and a filter with two parameters "carmaker" and "model" filtered alphabetically. Each car has its own description, a photo and a link to the detail page. When you select carmaker, cars are automatically sorted by this selection and the "model" filter automatically fills with available models for this car brand, a catalogue automatically refreshes to show cars filtered by those parameters. If you will push the "Reset" button filter will be reset.
 
 3. Detail page contains a full description of the car, a photo gallery and a button to reserve this car. You can reserve the car by pressing the button "Make reserve" and the car will be hidden from the filter and no longer available on the cars page – you will obtain popup with message "Reservation successful!". If you will push the button again you will have the popup with message "Already reserved".
 
-Features
---------
-
+## Features
 - Server-side rendering of the main page and detailed pages makes the site friendly to SEO;
 - Mobile-first allows you to use it both on mobile devices and on the desktop;
 - The application works with JSON API, which can be easily used for a mobile application or integrated with other services;
 - The filter with ReactJS is very fast and does all the work with lightweight API calls.
 
-Easy start from example docker image
-----------
-
+## Easy start from example docker image
 docker run -tid -p 80:80 --name="instant_car_project" ckomop0x/instant-car:v0.4
 
-Installation
-------------
-
+## Installation
 **With local apache server**  
 Put project files to a server with Apache that supports PHP 5.6+.
 
@@ -44,9 +40,7 @@ docker run -tid -p 80:80 --name="auto_site_server" -v /Users/p.klochkov/Webtime/
 docker run -tid -p 80:80 --name="instant_car_server" -v /Users/p.klochkov/Projects  /InstantCar:/var/www/html development/instant-car:dev
 
 
-Used technology
-------------
-
+##Used technologies
 **Data**    
 JSON
     
@@ -90,12 +84,8 @@ other
 - .gitignore (exclude some files from git)
 - .default.conf ( apache config for this project)
 - Dockerfile.build & Dockerfile.dev (docker configs for deploy and for develop)
-
-
     
-Development
-------------
-
+## Development
 	Install dependecies:
 	$ npm install               # via npm
 	$ yarn install              # via yarn

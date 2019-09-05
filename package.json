@@ -1,6 +1,6 @@
 {
   "name": "instant-car",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "instant car site dependencies",
   "main": "index.php",
   "author": "Pavel Klochkov \"paul.klochkov@gmail.com\"",
