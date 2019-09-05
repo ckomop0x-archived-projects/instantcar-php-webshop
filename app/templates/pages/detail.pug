@@ -1,0 +1,61 @@
+.detail-page-item.col-md-12
+  h1.col-md-12 <?=$detail['title']?>
+  .detail-page-item__content
+    .row
+      .col-md-6
+        #carouselExampleControls.carousel.slide(data-ride='carousel')
+          ol.carousel-indicators
+            | <? foreach ($detail['images'] as $key => $image) {?>
+            li(data-target!='#carouselExampleIndicators', data-slide-to!='<?=$key-1;?>', class!= '<?=$key == 1 ? \'active\' : \'\' ;?>')
+            | <? }; ?>
+          .carousel-inner(role='listbox')
+            | <?foreach ($detail['images'] as $key => $image) {?>
+            div(class!= 'carousel-item <?=$key == 1 ? \'active\' : \'\';?>')
+              img.d-block(src!='<?=$image?>' title!='<?=$detail[\'title\']?>' alt!='<?=$detail[\'title\']?>' style='height: 300px;')
+              .carousel-caption.d-none.d-md-block
+                p <?=$detail['title']?>
+            | <? }; ?>
+          a.carousel-control-prev(href='#carouselExampleControls', role='button', data-slide='prev', style='background: #000;')
+            span.carousel-control-prev-icon(aria-hidden='true')
+            span.sr-only Previous
+          a.carousel-control-next(href='#carouselExampleControls', role='button', data-slide='next', style='background: #000;')
+            span.carousel-control-next-icon(aria-hidden='true')
+            span.sr-only Next
+      .col-md-6
+        div
+          | Articul: <?=$detail['articul']?>
+        div
+          | Mileage: <?=$detail['mileage']?>
+        div
+          | Carmake: <?=$detail['carmake']?>
+        div
+          | Model: <?=$detail['model']?>
+        div
+          | Price: <?=number_format($detail['price'])?>€
+        button.btn.btn-success.detail-page-item__order(data-articul!='<?=$detail[\'articul\']?>')
+          | Make reserve
+
+// Modal success
+#successModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Modal title
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') ×
+      .modal-body
+        | Reservation succesfull!
+      .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+// Modal error
+#errorModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Modal title
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') ×
+      .modal-body
+        | Already reserved
+      .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal') Close

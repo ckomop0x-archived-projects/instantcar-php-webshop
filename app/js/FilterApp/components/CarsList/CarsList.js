@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 import CarsListItem from './CarsListItem'
 
@@ -32,5 +31,5 @@ class CarsList extends Component {
 export default CarsList
 
 CarsList.propTypes = {
-	cars: PropTypes.array,
+	cars: React.PropTypes.array
 }

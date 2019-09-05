@@ -1,0 +1,30 @@
+#Apache2 with php5 on Ubuntu 14.04 LTS
+FROM nimmis/apache-php5
+
+#Author
+MAINTAINER PavelKlochkov <paul.klochkov@gmail.com>
+
+#Copy our apache config
+COPY default.conf /etc/apache2/sites-available/000-default.conf
+
+#Copy our project
+COPY . /var/www/html
+
+#Open the container port
+EXPOSE 80
+
+#run the Apache server in the background
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+
+#install Ubuntu updates
+RUN apt-get update
+
+#install NodeJS 7+ and npm
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash
+RUN apt-get install -y nodejs
+
+#run Apache rewrite mod for correct php routing
+RUN a2enmod rewrite
+
+#install node_modules and build project
+RUN cd /var/www/html && npm install && npm run build

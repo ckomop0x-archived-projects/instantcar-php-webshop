@@ -1,8 +1,8 @@
 {
-  "name": "webpack2-react-boilerplate",
+  "name": "instant-car",
   "version": "0.0.2",
-  "description": "webpack2-react-boilerplate",
-  "main": "index.js",
+  "description": "instant car site dependencies",
+  "main": "index.php",
   "author": "Pavel Klochkov \"paul.klochkov@gmail.com\"",
   "license": "MIT",
   "dependencies": {
@@ -32,10 +32,15 @@
     "style-loader": "^0.16.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "webpack": "^2.3.1"
+    "webpack": "^2.3.1",
+    "webpack-livereload-plugin": "^0.11.0"
   },
   "scripts": {
     "start": "rm -rf dist/ && webpack --env.dev  --config webpack.config.js --w",
-    "build": "rm -rf dist/ && webpack --env.prod --config webpack.config.js -p"
+    "build": "rm -rf dist/ && webpack --env.prod --config webpack.config.js -p",
+    "doc": "rm -rf docs/ && esdoc -c esdoc.json"
+  },
+  "devDependencies": {
+    "esdoc": "^0.5.2"
   }
 }

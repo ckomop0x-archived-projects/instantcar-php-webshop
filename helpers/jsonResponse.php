@@ -1,6 +1,6 @@
 <?php
 /**
- * Function
+ * API response
  * @param null $message
  * @param int  $code
  *

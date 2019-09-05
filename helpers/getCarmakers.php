@@ -1,6 +1,6 @@
-<?
+<?php
 /**
- * Function for obtaining car brands
+ * Obtaining car brands
  * @param $array
  *
  * @return array

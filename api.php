@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: p.klochkov
- * Date: 03.04.17
- * Time: 21:59
- */
 
 /*
  * Include some helpers
@@ -13,7 +7,7 @@
 include './helpers/getCarmakers.php';
 include './helpers/filterByCarMaker.php';
 include './helpers/filterByCarModel.php';
-include './helpers/searchForId.php';
+include './helpers/searchForArticul.php';
 include './helpers/jsonResponse.php';
 
 /*
@@ -43,7 +37,7 @@ if (empty($_POST)) {
  * Car reservation API
  */
 if($_POST['request'] == 'reserve') {
-	$id = searchForId($_POST['articul'], $parsedData['cars']);
+	$id = searchForArticul($_POST['articul'], $parsedData['cars']);
 	if ($parsedData['cars'][$id]['reserved'] == true) {
 		$message = 'Already reserved';
 	} else {

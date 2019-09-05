@@ -1,0 +1,35 @@
+{
+  "coverage": "16.66%",
+  "expectCount": 6,
+  "actualCount": 1,
+  "files": {
+    "js/FilterApp/components/CarsList/CarsList.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6
+      ]
+    },
+    "js/FilterApp/components/CarsList/CarsListItem.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "js/FilterApp/components/Filter/Filter.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        6
+      ]
+    },
+    "js/helpers/api.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    }
+  }
+}

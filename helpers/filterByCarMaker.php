@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Filtering cars by brand
  * @param $array

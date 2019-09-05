@@ -3,7 +3,8 @@ AddDefaultCharset UTF-8
 AddCharset utf-8 .php .html .css .js .xml .json .rss
 ServerSignature Off
 Options -Indexes
-ErrorDocument 404 /404.php
+#ErrorDocument 404 /404.php
+
 
 php_flag register_globals off
 php_flag magic_quotes_gpc off
@@ -12,6 +13,11 @@ php_flag magic_quotes_runtime Off
 php_flag display_startup_errors on
 php_flag display_errors on
 php_flag html_errors on
+
+<IfModule mod_php5.c>
+   php_value short_open_tag 1
+ </IfModule>
+
 
 <IfModule mod_rewrite.c>
 
@@ -43,33 +49,27 @@ php_flag html_errors on
 
 </IfModule>
 
-
-
-
-
 # gzip.
-#<IfModule mod_deflate.c>
-#
-#	# html, txt, css, js, json, xml, htc:
-#	AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
-#	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
-#	AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
-#
-#	# web-fonts & svg:
-#	<FilesMatch "\.(ttf|otf|eot|svg)$" >
-#		SetOutputFilter DEFLATE
-#	</FilesMatch>
-#</IfModule>
+<IfModule mod_deflate.c>
 
+	# html, txt, css, js, json, xml, htc:
+	AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+	AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
 
+	# web-fonts & svg:
+	<FilesMatch "\.(ttf|otf|eot|svg)$" >
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+</IfModule>
 
-#<IfModule mod_expires.c>
-#	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|ttf|otf|eot|svg|woff)$">
-#		Header set Cache-Control "public"
-#		Header set Expires "Fri, 17 May 2030 20:00:00 GMT"
-#		FileETag None
-#	</FilesMatch>
-#</IfModule>
+<IfModule mod_expires.c>
+	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|ttf|otf|eot|svg|woff)$">
+		Header set Cache-Control "public"
+		Header set Expires "Fri, 17 May 2030 20:00:00 GMT"
+		FileETag None
+	</FilesMatch>
+</IfModule>
 
 
 

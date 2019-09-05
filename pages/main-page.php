@@ -1,6 +1,6 @@
 
 <section class="big-picture">
-  <div class="big-picture-title">#InstantCar</div>
+  <div class="big-picture-title">ПРОДАЖА СТАРТЕРОВ И ГЕНЕРАТОРОВ</div>
   <div class="big-picture-text">Enjoy our service.<br>Best service for buying used cars in Germany</div><a class="big-picture-button" href="/search">Enjoy</a>
 </section>
 <!--include ../sub-menu/sub-menu-->

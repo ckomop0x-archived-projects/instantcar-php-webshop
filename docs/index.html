@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">FilterApp/components/CarsList</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/js/FilterApp/components/CarsList/CarsList.js~CarsList.html">CarsList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CarsListItem">CarsListItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">FilterApp/components/Filter</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/js/FilterApp/components/Filter/Filter.js~Filter.html">Filter</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">helpers</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-api">api</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="instantcar">InstantCar</h1>
+<p>InstantCar is a small web application for car rent. </p>
+<h2 id="structure">Structure</h2>
+<ol>
+<li><p>On the main page, you can see the big picture with the main advert, a link to a catalogue with filter and block with &quot;best&quot; cars for sale. Each car has a short description, a photo and a link to the detail page.</p>
+</li>
+<li><p>On cars page, there is a catalogue of all available cars and a filter with two parameters &quot;carmaker&quot; and &quot;model&quot; filtered alphabetically. Each car has its own description, a photo and a link to the detail page. When you select carmaker, cars are automatically sorted by this selection and the &quot;model&quot; filter automatically fills with available models for this car brand, a catalogue automatically refreshes to show cars filtered by those parameters. If you will push the &quot;Reset&quot; button filter will be reset.</p>
+</li>
+<li><p>Detail page contains a full description of the car, a photo gallery and a button to reserve this car. You can reserve the car by pressing the button &quot;Make reserve&quot; and the car will be hidden from the filter and no longer available on the cars page &#x2013; you will obtain popup with message &quot;Reservation successful!&quot;. If you will push the button again you will have the popup with message &quot;Already reserved&quot;.</p>
+</li>
+</ol>
+<h2 id="features">Features</h2>
+<ul>
+<li>Server-side rendering of the main page and detailed pages makes the site friendly to SEO;</li>
+<li>Mobile-first allows you to use it both on mobile devices and on the desktop;</li>
+<li>The application works with JSON API, which can be easily used for a mobile application or integrated with other services;</li>
+<li>The filter with ReactJS is very fast and does all the work with lightweight API calls.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Put project files to a server with Apache that supports PHP 5.6+. If you want, you can use the default scripts and styles. If you want to customize project use the instructions from &quot;Development&quot;.</p>
+<h2 id="used-technology">Used technology</h2>
+<p><strong>Data</strong><br>JSON</p>
+<p><strong>Backend</strong><br>PHP</p>
+<p><strong>Frontend</strong>  </p>
+<ol>
+<li>Project builder &#x2013; webpack2</li>
+<li>Templates - pug (ex-jade)</li>
+<li>Styles &#x2013; preprocessor stylus, postcss(autoprefixer), Bootstrap 4</li>
+<li>JS &#x2013; vanillaJS(ES6), React, jQuery for Boostrap, BootstrapJS</li>
+</ol>
+<h2 id="structure">Structure</h2>
+<p><strong>folders</strong>  </p>
+<ul>
+<li>app (js scripts, styles, templates)  </li>
+<li>assets (fonts, images, js libs)  </li>
+<li>data (data bases)</li>
+<li>dist (compiled scripts and styles)  </li>
+<li>docs (generated js documentation)</li>
+<li>helpers (php functions)</li>
+<li>pages (page templates)</li>
+</ul>
+<p><strong>root directory</strong>  </p>
+<p>scripts  </p>
+<ul>
+<li>api.php (main application POST API)</li>
+<li>index.php (application router)  </li>
+<li>page (application body)</li>
+</ul>
+<p>other</p>
+<ul>
+<li>package.json (npm dependencies and start/develop scripts)  </li>
+<li>esdoc.json (config for esdoc)</li>
+<li>.eslint (JS linter)</li>
+<li>.htaccess (rules for webserver)</li>
+<li>webpack.config.js (webpack config)</li>
+<li>yarn.lock (Yarn needs to store exactly which versions of each dependency were installed)</li>
+<li>README.md (project description)</li>
+</ul>
+<h2 id="development">Development</h2>
+<pre><code><code class="source-code prettyprint">Install dependecies:
+$ npm install               # via npm
+$ yarn install              # via yarn
+
+Develop
+$ npm start                 # via npm
+$ yarn start                # via yarn
+
+Build
+$ npm build                 # via npm
+$ yarn build                # via yarn</code>
+</code></pre><p>All templates are stored in <em>app/templates</em>, styles in <em>app/stylesheet</em> and js in <em>app/js</em>. When &quot;develop&quot; mode is started,, webpack is looking for changes and rebuilds the packages and replace the links in application head and body with new ones. The code is divided into small blocks. In develop mode JS and CSS are generated with .map inside so it&apos; very common to navigate and debug.</p>
+<h2 id="documentation-">Documentation </h2>
+<p>For js documentation I use [<a href="https://esdoc.org/|ESDocs">https://esdoc.org/|ESDocs</a>]</p>
+<pre><code><code class="source-code prettyprint"># install ESDoc from npm
+$ npm install -g esdoc      # via npm
+$ yarn install -g esdoc     # via yarn
+
+#run ESDoc
+$ npm doc                   # via npm
+$ yarn doc                  # via yarn</code>
+</code></pre><h2 id="todo">TODO</h2>
+<ul>
+<li>Architecture - add some kind of user identification and store reserve only for some time. If a car(s) wouldn&apos;t be bought release it;  </li>
+<li>Backend - add 404 page for a detail car page (/auto/dsaadsasd);</li>
+<li>Search page &#x2013; add a button for show/hide reserved(by this user) cars, add &quot;on the fly&quot; routing for the possibility to give a link on a filter presets (it can be easily implemented with React-router4). </li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Better to render and cache on server side pages like main or detail like small composite blocks because they wouldn&apos;t be changed very often;</li>
+<li><p>Pictures and scripts preferably to keep on CDN. And, of cause, use Gzip and a client side cache of scripts, pictures and styles;</p>
+</li>
+<li><p>Split API data into smaller blocks and if some change happens (a car reserve or a sell) refresh this block. For API it&apos;s better to keep them in memory. We can recieve ID and price from one server and then fetch additional data (description, pictures) from other servers using the recieved ID. It is more complex but lowers load and splits requests on as many resources as we want.</p>
+</li>
+<li><p>For the best performance very good decision is to keep an API and a static content on the different servers/subdomains and if a load is growing very quickly or a load is a very high, implement a possibility to change API dynamically. It can be done at least in two ways:</p>
+<ul>
+<li>from the server side (user will obtain API address when it come);</li>
+<li>from client side (script will change API address to next if does not have a response from current - very useful feature for mobile clients because they have preloaded client part)</li>
+</ul>
+</li>
+</ul>
+<h2 id="decisions">Decisions</h2>
+<p>Architecture - I decided to make the filter on the client side to minimize a load on the server. It to request data and made all view rendering on the client side. For styles I use Stylus it helps me keep the code clean and split it to small easy to read peaces. For HTML rendering I use pug. With It&apos;s good to write code that is easy to understand. I can split it to small parts, make mixins, includes and etc.  </p>
+<h2 id="version-control-">Version control </h2>
+<p>Git</p>
+<h2 id="license">License</h2>
+<p>The project is developed for demand.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

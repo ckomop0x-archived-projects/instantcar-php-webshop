@@ -1,0 +1,1099 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "name": "js/FilterApp/FilterApp.js",
+    "content": "import React, { Component } from 'react';\nimport ReactDOM from 'react-dom';\n\nimport CarsList from './components/CarsList/CarsList';\nimport Filter from './components/Filter/Filter'\n\n// import helpers\nimport api from '../helpers/api'\n\nclass App extends Component {\n\n\t/**\n\t * Set default application state\n\t * @param props\n\t */\n\tconstructor(props) {\n\t\tsuper(props);\n\t\tthis.state = {\n\t\t\tcars: [], // All cars\n\t\t\tcarMakers: [], // All car brands\n\t\t\tselectedCarmaker: '', // Selected car brand\n\t\t\tcarModels: 'Select carmaker First' // Available models for selected car brand\n\t\t};\n\t}\n\n\t/**\n\t * Before first mount of on application we are receiving data\n\t * to fulfill application\n\t */\n\tcomponentDidMount() {\n\t\t/**\n\t\t * Receive brands and put it into current state\n\t\t */\n\t\tconst carmakersData = api({request: 'carmakers'});\n\t\tcarmakersData.then(result => {\n\t\t\tthis.setState({carMakers: result});\n\t\t});\n\n\t\t/**\n\t\t * Receive cars and put it into current state\n\t\t */\n\t\tconst autoData = api({request: 'auto'});\n\t\tautoData.then(result => {\n\t\t\tthis.setState({cars: result.cars});\n\t\t});\n\t}\n\n\t/**\n\t * Function for changing filter data depends on received brand\n\t * @param event\n\t */\n\n\tchangeCarmaker(event) {\n\t\t/**\n\t\t * Request object with name of request and selected car brand\n\t\t * @type {{request: string, carmake: string}}\n\t\t */\n\t\tconst data = {\n\t\t\trequest: 'carMake', // type of request\n\t\t\tcarmake: event.target.innerText // received brand\n\t\t};\n\n\t\t// Request to backend api\n\t\tconst apiData = api(data);\n\n\t\t/**\n\t\t * Receive data and put it into current state\n\t\t */\n\t\tapiData.then(result => {\n\t\t\tthis.setState({carModels: result}); // car models filtered by selected brand\n\t\t\tthis.setState({cars: result}); // cars in CarsList filtered by selected brand\n\t\t\tthis.setState({selectedCarmaker: data.carmake}); // selected brand\n\t\t\tif (result === false) {\n\t\t\t\tthis.setState({carModels: 'No models found'})\n\t\t\t}\n\t\t})\n\t}\n\t/**\n\t * Function for changing filter data depends on received model for selected brand\n\t * @param event\n\t */\n\n\tchangeCarmodel(event) {\n\t\t/**\n\t\t * Request object with name of request and selected car brand and model\n\t\t * @type {{request: string, carmake: string, carmodel: string}}\n\t\t */\n\t\tconst data = {\n\t\t\trequest: 'carModel', // type of request\n\t\t\tcarmake: this.state.selectedCarmaker, // selected brand\n\t\t\tcarmodel: event.target.innerText // selected model\n\t\t};\n\n\t\t// Request to backend api\n\t\tconst apiData = api(data);\n\n\t\t/**\n\t\t * Receive data and put it into current state\n\t\t */\n\t\tapiData.then(result => {\n\t\t\tthis.setState({cars: result});  // cars in CarsList filtered by selected brand and model\n\t\t\tif (result === false) {\n\t\t\t\tthis.setState({carModels: 'No models found'})\n\t\t\t}\n\t\t})\n\t}\n\n\t/**\n\t * Function for resetting filter\n\t */\n\n\tresetFilter() {\n\t\t/**\n\t\t * Request object with name of request\n\t\t * @type {{request: string}}\n\t\t */\n\t\tconst requestAuto = {request: 'auto'}; // type of request\n\n\t\t// Request to backend api\n\t\tconst autoData = api(requestAuto);\n\n\t\t/**\n\t\t * Receive data and put it into current state\n\t\t */\n\t\tautoData.then(result => {\n\t\t\tthis.setState({cars: result.cars});\n\t\t});\n\t\tthis.setState({\n\t\t\tselectedCarmaker: '', // reset selected brand\n\t\t\tcarModels: 'Select carmaker First' // reset models\n\t\t})\n\t}\n\trender() {\n\t\treturn (\n\t\t\t<div className='application row'>\n\t\t\t\t<Filter carMakers = {this.state.carMakers}\n\t\t\t\t        changeCarmaker = {this.changeCarmaker.bind(this)}\n\t\t\t\t        changeCarmodel = {this.changeCarmodel.bind(this)}\n\t\t\t\t        resetFiler = {this.resetFilter.bind(this)}\n\t\t\t\t        carModels = {this.state.carModels}/>\n\t\t\t\t<CarsList cars = {this.state.cars}/>\n\t\t\t</div>\n\t\t)\n\t}\n}\n\nif (document.getElementById('searchapp')) {\n\tReactDOM.render(\n\t\t<App />, document.getElementById('searchapp')\n\t);\n}\n",
+    "static": true,
+    "longname": "js/FilterApp/FilterApp.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "name": "App",
+    "memberof": "js/FilterApp/FilterApp.js",
+    "static": true,
+    "longname": "js/FilterApp/FilterApp.js~App",
+    "access": null,
+    "export": false,
+    "importPath": "webpack2-react-boilerplate/js/FilterApp/FilterApp.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 2,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#constructor",
+    "access": null,
+    "description": "Set default application state",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 3,
+    "kind": "member",
+    "name": "state",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#state",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{\"cars\": *, \"carMakers\": *, \"selectedCarmaker\": *, \"carModels\": string}"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "method",
+    "name": "componentDidMount",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#componentDidMount",
+    "access": null,
+    "description": "Before first mount of on application we are receiving data\nto fulfill application",
+    "lineNumber": 30,
+    "params": []
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "name": "changeCarmaker",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#changeCarmaker",
+    "access": null,
+    "description": "Function for changing filter data depends on received brand",
+    "lineNumber": 53,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "event",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "name": "changeCarmodel",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#changeCarmodel",
+    "access": null,
+    "description": "Function for changing filter data depends on received model for selected brand",
+    "lineNumber": 83,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "event",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "name": "resetFilter",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#resetFilter",
+    "access": null,
+    "description": "Function for resetting filter",
+    "lineNumber": 112,
+    "params": []
+  },
+  {
+    "__docId__": 8,
+    "kind": "method",
+    "name": "render",
+    "memberof": "js/FilterApp/FilterApp.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/FilterApp.js~App#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 133,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 9,
+    "kind": "file",
+    "name": "js/FilterApp/components/CarsList/CarsList.js",
+    "content": "import React, { Component } from 'react'\n\nimport CarsListItem from './CarsListItem'\n\nclass CarsList extends Component {\n\trender() {\n\t\tconst data = [];\n\t\tthis.props.cars.map(car => {\n\t\t\tif (car.reserved !== true) {\n\t\t\t\tdata.push(<CarsListItem key={car.id}\n\t\t\t\t                        imgSrc={car.images[1]}\n\t\t\t\t                        model={car.model}\n\t\t\t\t                        price={car.price}\n\t\t\t\t                        title={car.title}\n\t\t\t\t                        articul={car.articul}\n\t\t\t\t                        carmake={car.carmake}/>)\n\t\t\t}\n\t\t\treturn data;\n\t\t});\n\t\treturn (\n\t\t\t<div className='cars-lis col-12 col-sm-6 col-md-8 col-lg-9'>\n\t\t\t\t<h3 className='cars-list__title'>Cars List</h3>\n\t\t\t\t<div className='cars-list__elements'>\n\t\t\t\t\t{data}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t)\n\t}\n}\n\nexport default CarsList\n\nCarsList.propTypes = {\n\tcars: React.PropTypes.array\n}\n",
+    "static": true,
+    "longname": "js/FilterApp/components/CarsList/CarsList.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 10,
+    "kind": "class",
+    "name": "CarsList",
+    "memberof": "js/FilterApp/components/CarsList/CarsList.js",
+    "static": true,
+    "longname": "js/FilterApp/components/CarsList/CarsList.js~CarsList",
+    "access": null,
+    "export": true,
+    "importPath": "webpack2-react-boilerplate/js/FilterApp/components/CarsList/CarsList.js",
+    "importStyle": "CarsList",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 11,
+    "kind": "method",
+    "name": "render",
+    "memberof": "js/FilterApp/components/CarsList/CarsList.js~CarsList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/components/CarsList/CarsList.js~CarsList#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 12,
+    "kind": "file",
+    "name": "js/FilterApp/components/CarsList/CarsListItem.js",
+    "content": "import React from 'react'\n\nconst CarsListItem = (props) => {\n\tconst {\n\t\tarticul,\n\t\tcarmake,\n\t\timgSrc,\n\t\tmodel,\n\t\tprice,\n\t\ttitle\t} = props\n\treturn (\n\t\t<div className='cars-list__item'>\n\t\t\t<a  href={`/auto/${articul}`}\n\t\t\t    title={`${carmake} - ${model}`}\n\t\t\t    className='cars-list__item__link'>\n\t\t\t\t<div className='cars-list__item__image'>\n\t\t\t\t\t<img src={imgSrc} alt={title} />\n\t\t\t\t</div>\n\t\t\t\t<div className='cars-list__item__description'>\n\t\t\t\t\t<div className='cars-list__item__description-text' >Make: <b>{carmake}</b></div>\n\t\t\t\t\t<div className='cars-list__item__description-text' >Model: <b>{model}</b></div>\n\t\t\t\t\t<div className='cars-list__item__description-text' >Price: <b>{price}</b> €</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t)\n}\n\nexport default CarsListItem\n\nCarsListItem.propTypes = {\n\tarticul: React.PropTypes.string,\n\tcarmake: React.PropTypes.string,\n\timgSrc: React.PropTypes.string,\n\tmodel: React.PropTypes.string,\n\tprice: React.PropTypes.number,\n\ttitle: React.PropTypes.string\n}\n",
+    "static": true,
+    "longname": "js/FilterApp/components/CarsList/CarsListItem.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 13,
+    "kind": "function",
+    "name": "CarsListItem",
+    "memberof": "js/FilterApp/components/CarsList/CarsListItem.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "js/FilterApp/components/CarsList/CarsListItem.js~CarsListItem",
+    "access": null,
+    "export": true,
+    "importPath": "webpack2-react-boilerplate/js/FilterApp/components/CarsList/CarsListItem.js",
+    "importStyle": "CarsListItem",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 14,
+    "kind": "file",
+    "name": "js/FilterApp/components/Filter/Filter.js",
+    "content": "import React, { Component } from 'react'\nimport PropTypes from 'prop-types'\n\nclass Filter extends Component {\n\n\trender() {\n\t\tconst carMakers = [];\n\t\tlet carModels = [];\n\n\t\tthis.props.carMakers.map(carmaker => {\n\t\t\tcarMakers.push(\n\t\t\t\t<button key={carmaker}\n\t\t\t\t        className='btn btn-secondary'\n\t\t\t\t        onClick={event => { this.props.changeCarmaker(event)}}>{carmaker}</button>\n\t\t\t)\n\t\t\treturn carMakers;\n\t\t});\n\n\t\tif (typeof(this.props.carModels) === 'object') {\n\t\t\tthis.props.carModels.map(carmodels => {\n\t\t\t\tcarModels.push(\n\t\t\t\t\t<button key={carmodels.model}\n\t\t\t\t\t        className='btn btn-secondary'\n\t\t\t\t\t        onClick={event => { this.props.changeCarmodel(event)}}>{carmodels.model}</button>)\n\t\t\t\treturn carMakers;\n\t\t\t});\n\t\t} else {\n\t\t\tcarModels = this.props.carModels;\n\t\t}\n\n\n\t\treturn (\n\t\t\t<div className='filter-container col-12 col-sm-6 col-md-4 col-lg-3'>\n\t\t\t\t<h2 className='filter-container-title col-12'>Select your car</h2>\n\t\t\t\t<div>\n\t\t\t\t\t<div className='' style={{marginBottom: 20, marginTop: 20}}>\n\t\t\t\t\t\t<h3 className='col-8'\n\t\t\t\t\t\t    style={{display: 'inline-block', lineHeight: '40px'}}>Make</h3>\n\t\t\t\t\t\t<button className='col-4 btn btn-secondary'\n\t\t\t\t\t\t        onClick={this.props.resetFiler}\n\t\t\t\t\t\t        style={{verticalAlign: 'top'}}>Reset</button>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div className='col-12'>\n\t\t\t\t\t\t{carMakers}\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\t<h3 className='col-12'>Model</h3>\n\t\t\t\t\t<div className='col-12'>\n\t\t\t\t\t\t{carModels}\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t)\n\t}\n}\n\nexport default Filter\n\nFilter.propTypes = {\n\tcarMakers: PropTypes.array,\n\tcarModels: PropTypes.string,\n\tchangeCarmaker: PropTypes.func,\n\tchangeCarmodel: PropTypes.func,\n\tresetFiler: PropTypes.func\n}\n",
+    "static": true,
+    "longname": "js/FilterApp/components/Filter/Filter.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 15,
+    "kind": "class",
+    "name": "Filter",
+    "memberof": "js/FilterApp/components/Filter/Filter.js",
+    "static": true,
+    "longname": "js/FilterApp/components/Filter/Filter.js~Filter",
+    "access": null,
+    "export": true,
+    "importPath": "webpack2-react-boilerplate/js/FilterApp/components/Filter/Filter.js",
+    "importStyle": "Filter",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "name": "render",
+    "memberof": "js/FilterApp/components/Filter/Filter.js~Filter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "js/FilterApp/components/Filter/Filter.js~Filter#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 17,
+    "kind": "file",
+    "name": "js/helpers/api.js",
+    "content": "import axios from 'axios';\n\n/**\n *\n * @param data\n * @returns {Promise.<T>|*}\n */\nconst api = (data)=>{\n\treturn axios({\n\t\tmethod: 'POST', // api method\n\t\turl: '/api.php',  // api URL\n\t\tdata: data,\n\t\theaders: {'Content-Type': 'application/json'}\n\t}).then((response) => {\n\t\t// console.log(response.data.message.data)\n\t\treturn response.data.message.data;\n\t}).catch(function() {\n\t\treturn false;\n\t});\n}\n\nexport default api\n",
+    "static": true,
+    "longname": "js/helpers/api.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 18,
+    "kind": "function",
+    "name": "api",
+    "memberof": "js/helpers/api.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "js/helpers/api.js~api",
+    "access": null,
+    "export": true,
+    "importPath": "webpack2-react-boilerplate/js/helpers/api.js",
+    "importStyle": "api",
+    "description": "",
+    "lineNumber": 8,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Promise.<T>|*}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise.<T>",
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 19,
+    "kind": "file",
+    "name": "js/helpers/helpers.js",
+    "content": "export { api } from './api'\n",
+    "static": true,
+    "longname": "js/helpers/helpers.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 20,
+    "kind": "file",
+    "name": "js/index.js",
+    "content": "import axios from 'axios';\n\n// Importing the React application for the car search page\nimport './FilterApp/FilterApp';\n\nif (document.querySelector('.detail-page-item__order')) {\n\tconst reserveButton = document.querySelector('.detail-page-item__order');\n\t/**\n\t *  Car reservation\n\t *  we getting the car Articul and send it to the backend\n\t * @param event\n\t */\n\treserveButton.onclick = (event) => {\n\t\taxios({\n\t\t\tmethod: 'POST', // api method\n\t\t\turl: '/api.php', // api URL\n\t\t\tdata: {\n\t\t\t\trequest: 'reserve', // type of request\n\t\t\t\tarticul: event.target.dataset.articul  // articul of the car\n\t\t\t}, headers: {'Content-Type': 'application/json'}\n\t\t}).then((response) => {\n\t\t\tif (response.data.message.data === 'Already reserved') { // if the car is already reserved\n\t\t\t\t$('#errorModal').modal();\n\t\t\t} else { // if the car is just reserved\n\t\t\t\t$('#successModal').modal();\n\t\t\t}\n\t\t}).catch(function() {\n\t\t\t// if error do something\n\t\t});\n\t}\n}\n",
+    "static": true,
+    "longname": "js/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 49,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 56,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 58,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 59,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 60,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 61,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 62,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 64,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 65,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 66,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "lineNumber": 193,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 70,
+    "kind": "external",
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "external",
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "external",
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "external",
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "external",
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "external",
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "external",
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "external",
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "lineNumber": 34,
+    "builtinExternal": true
+  }
+]

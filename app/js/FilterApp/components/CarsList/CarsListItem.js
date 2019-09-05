@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 const CarsListItem = (props) => {
 	const {
@@ -30,10 +29,10 @@ const CarsListItem = (props) => {
 export default CarsListItem
 
 CarsListItem.propTypes = {
-	articul: PropTypes.string,
-	carmake: PropTypes.string,
-	imgSrc: PropTypes.string,
-	model: PropTypes.string,
-	price: PropTypes.number,
-	title: PropTypes.string
+	articul: React.PropTypes.string,
+	carmake: React.PropTypes.string,
+	imgSrc: React.PropTypes.string,
+	model: React.PropTypes.string,
+	price: React.PropTypes.number,
+	title: React.PropTypes.string
 }

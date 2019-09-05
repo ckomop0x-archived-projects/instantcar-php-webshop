@@ -1,4 +1,6 @@
-<?
+<?php
+
+include './helpers/searchForArticul.php';
 
 $route = '';
 /*
@@ -22,34 +24,32 @@ if(isset($_SERVER['REDIRECT_QUERY_STRING'])) {
  * Router
  */
 
+// Route to main page
 if ($addr[1] == '') {
 	$route = 'main-page';
 }
+
+// Display 404 error
 if ($addr[1] == 'auto'
 		&& count($addr) == 3
-		&& searchForId($addr[2], $PARSED_DATA['cars']) == NULL
-		&& searchForId($addr[2], $PARSED_DATA['cars']) != 0) {
+		&& searchForArticul($addr[2], $PARSED_DATA['cars']) == NULL
+		&& searchForArticul($addr[2], $PARSED_DATA['cars']) != 0) {
 		header("HTTP/1.0 404 Not Found");
 		$notFound = true;
 		$title = 'Page not found';
 		include 'page.php';
+
+// All ok, we can render router
 } elseif ($addr[1] == ''
 	|$addr[1] == 'search'
 	|$addr[1] == 'auto'
 	|count($get_array) >= 2) {
 	$title = 'InstantCar';
-	include 'page.php';
+	include './page.php';
 } elseif ($addr[1] != '') {
 	header("HTTP/1.0 404 Not Found");
 	$notFound = true;
 	$title = 'Page not found';
 	include 'page.php';
 }
-function searchForId($id, $array) {
-	foreach ($array as $key => $val) {
-		if ($val['articul'] === $id) {
-			return $key;
-		}
-	}
-	return null;
-}
+
